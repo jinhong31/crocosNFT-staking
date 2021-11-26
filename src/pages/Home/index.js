@@ -16,8 +16,8 @@ import axios from 'axios'
 import { CustomButton } from "../../components/CustomButton";
 import CrocosFarmCont from "../../ABI/CrocosFarm.json";
 import CrocosNFTCont from "../../ABI/CrocosNFT.json";
-const CrocosFarmAddr = "0x9181c0349DA770CB8223eE9fe0ed04A0cCe2104d";
-const CrocosNFTAddr = "0xA86238EeE61CE05F0B8698588B86948Ce7B725A6";
+const CrocosFarmAddr = "0xC1CbD89De03B6fd629B6b3A2FC6258c5fBeBd541";
+const CrocosNFTAddr = "0xcEB3BDF0318cccB1EF3E93b89c0fEe6209CA10b7";
 let myAddr = "";
 
 const style = {
@@ -51,7 +51,7 @@ const StandardImageList = (props) => {
 		let nftContract;
 		try {
 			const chainId = await web3.eth.getChainId()
-			if (chainId === 4) {
+			if (chainId === 338) {
 				const web3Modal = new Web3Modal();
 				const connection = await web3Modal.connect();
 				const provider = new ethers.providers.Web3Provider(connection);
@@ -130,7 +130,7 @@ export const Home = () => {
 			let farmContract;
 			try {
 				const chainId = await web3.eth.getChainId()
-				if (chainId === 4) {
+				if (chainId === 338) {
 					const web3Modal = new Web3Modal();
 					const connection = await web3Modal.connect();
 					const provider = new ethers.providers.Web3Provider(connection);
@@ -167,7 +167,7 @@ export const Home = () => {
 		let nftContract;
 		try {
 			const chainId = await web3.eth.getChainId()
-			if (chainId === 4) {
+			if (chainId === 338) {
 				const web3Modal = new Web3Modal();
 				const connection = await web3Modal.connect();
 				const provider = new ethers.providers.Web3Provider(connection);
@@ -216,7 +216,7 @@ export const Home = () => {
 		let farmContract;
 		try {
 			const chainId = await web3.eth.getChainId()
-			if (chainId === 4) {
+			if (chainId === 338) {
 				const web3Modal = new Web3Modal();
 				const connection = await web3Modal.connect();
 				const provider = new ethers.providers.Web3Provider(connection);
@@ -258,7 +258,7 @@ export const Home = () => {
 		let nftContract;
 		try {
 			const chainId = await web3.eth.getChainId()
-			if (chainId === 4) {
+			if (chainId === 338) {
 				const web3Modal = new Web3Modal();
 				const connection = await web3Modal.connect();
 				const provider = new ethers.providers.Web3Provider(connection);
