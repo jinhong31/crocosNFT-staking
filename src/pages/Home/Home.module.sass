@@ -2,7 +2,7 @@
     width: 100vw
     height: 100vh
     background-size: cover
-    
+
     -x: hidden
     display: flex
     justify-content: center
@@ -40,8 +40,13 @@
         font-size: 12px
         margin-bottom: 70px
 
+.active
+
+    .image_card
+        background: rgba(0, 0, 0, 0.7)
+
 .image_card
-    background: grey
+    background: darkGrey
     border-radius: 20px
     text-align: center
     padding: 10px
@@ -49,8 +54,15 @@
     cursor: pointer
 
     &:hover
-        transform: scale(1.1, 1.1)
+        transform: scale(1.07, 1.07)
 
     img
         width: 150px
         height: 200px
+
+.unmber
+    padding: 50px 50px 30px
+
+    input
+        font-size: 20px
+        width: 200px

@@ -9,7 +9,7 @@ contract CrocosNFT is ERC721Enumerable, Ownable {
 
   string baseURI;
   string public baseExtension = ".json";
-  uint256 public cost = 400 ether;
+  uint256 public cost = 1 ether;
   uint256 public maxSupply = 10000;
   uint256 public maxMintAmount = 10;
   bool public paused = false;

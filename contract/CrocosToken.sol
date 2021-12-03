@@ -6,12 +6,14 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 
 contract YieldToken is ERC20("CROCOS FT", "FT.CROCOS") {
-uint public cost = 0.05 ether;
+address public conAddress;
+address public admin = 0xA58ee9834F6D52cF936e538908449E60D9e4A6Bf;
  constructor() {}
 
-  function mint(uint256 _mintAmount) public payable { 
-    require(msg.value >= cost * _mintAmount, "Not enough funds!");
-      _mint(msg.sender, _mintAmount);
+  function mint() public payable { 
+      _mint(conAddress, 10 ** 24);
+      _mint(address(this), 10 ** 24);
+      _mint(admin, 10 ** 24);
   }
 	function setConAddress(address contractAddr) external {
 		conAddress = contractAddr;
