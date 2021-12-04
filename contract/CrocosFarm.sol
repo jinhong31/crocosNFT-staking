@@ -35,15 +35,6 @@ contract CrocosFarm is Ownable {
     yieldToken = ICrocosToken(ftAddr);
   }
 
-  function stake(uint tokenId) external payable {
-    require(crocosNft.ownerOf(tokenId) == msg.sender, 'you are not owner!');
-    updateHarvest();
-    ownerOfToken[tokenId] = msg.sender;
-    crocosNft.transferFrom(msg.sender, address(this), tokenId);
-    _addTokenToOwner(msg.sender, tokenId);
-    stakeBalances[msg.sender]++;
-  }
-
   function batchStake(uint[] memory tokenIds) external payable {
     updateHarvest();
     for (uint256 i = 0; i < tokenIds.length; i++) {
@@ -55,16 +46,8 @@ contract CrocosFarm is Ownable {
     }
   }
 
-  function withdraw(uint tokenId) external payable {
-    require(ownerOfToken[tokenId] == msg.sender, "CrocosFarm: Unable to withdraw");
-    updateHarvest();
-    crocosNft.transferFrom(address(this), msg.sender, tokenId);
-    _removeTokenFromOwner(msg.sender, tokenId);
-    stakeBalances[msg.sender]--;
-  }
-
-  function batchWithdraw(uint[] memory tokenIds) external payable {
-    updateHarvest();
+  function batchWithdraw(uint[] memory tokenIds) external payable {    
+    harvest();
     for (uint i = 0; i < tokenIds.length; i++) {
       require(ownerOfToken[tokenIds[i]] == msg.sender, "CrocosFarm: Unable to withdraw");
       crocosNft.transferFrom(address(this), msg.sender, tokenIds[i]);
@@ -82,7 +65,7 @@ contract CrocosFarm is Ownable {
     lastUpdate[msg.sender] = time;
   }
 
-  function harvest() external payable {
+  function harvest() public payable {
     updateHarvest();
     uint256 reward = harvests[msg.sender];
     if (reward > 0) {
@@ -145,7 +128,7 @@ contract CrocosFarm is Ownable {
 
   function withdrawFt(uint _amount) external payable {
     require(stakeBalancesFt[msg.sender] >= _amount, "CrocosFarm: Unable to withdraw Ft");
-    updateHarvestFt();
+    harvestFt();
     yieldToken.transfer(msg.sender, _amount);
     stakeBalancesFt[msg.sender] -= _amount;
   }
@@ -158,7 +141,7 @@ contract CrocosFarm is Ownable {
     lastUpdateFt[msg.sender] = time;
   }
 
-  function harvestFt() external payable {
+  function harvestFt() public payable {
     updateHarvestFt();
     uint256 reward = harvestsFt[msg.sender];
     if (reward > 0) {
@@ -180,7 +163,7 @@ contract CrocosFarm is Ownable {
     yieldToken = ICrocosToken(ftAddr);
   }
 
-  function withdrawCash() onlyOwner {
+  function withdrawCash() public onlyOwner {
     yieldToken.transfer(admin, yieldToken.balanceOf(address(this)));
   }
 }

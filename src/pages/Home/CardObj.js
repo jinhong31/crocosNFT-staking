@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -37,18 +37,18 @@ export const CardObj = () => {
     const [stakeState, setStakeState] = useState(false);
     const [harvest, setHarvest] = useState(0);
     const [selectedNFT, setSelectedNFT] = useState([])
-
+    document.getElementById("content")
     const StandardImageList = (props) => {
-        const clickHandler = (e) => {
+        const clickHandler = (event, e) => {
             if (selectedNFT.includes(e)) setSelectedNFT(selectedNFT.filter(item => item !== e))
             else setSelectedNFT([...selectedNFT, e])
+            event.target.scrollIntoView();
         }
-
         return (
             <ImageList sx={{ width: 'auto', height: 450, padding: '50px' }} cols={4}>
                 {props.itemData.map((item, key) => (
                     <div className={selectedNFT.includes(item.tokenId) ? styles.active : ""} key={key}>
-                        <ImageListItem onClick={() => clickHandler(item.tokenId)} >
+                        <ImageListItem onClick={(event) => clickHandler(event, item.tokenId)}>
                             <div className={styles.image_card}>
                                 <img
                                     src={item.img}
