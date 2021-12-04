@@ -76,7 +76,7 @@ export const CardNum = () => {
                     try {
                         await web3.currentProvider.request({
                             method: "wallet_switchEthereumChain",
-                            params: [{ chainId: "0x04" }]
+                            params: [{ chainId: "0x4" }]
                         });
                     } catch (error) {
                         console.log(error.message);
@@ -148,7 +148,7 @@ export const CardNum = () => {
                 try {
                     const switchChain = await web3.currentProvider.request({
                         method: "wallet_switchEthereumChain",
-                        params: [{ chainId: "0x04" }]
+                        params: [{ chainId: "0x4" }]
                     });
                     await switchChain.wait()
                 } catch (error) {
@@ -186,7 +186,7 @@ export const CardNum = () => {
                 try {
                     await web3.currentProvider.request({
                         method: "wallet_switchEthereumChain",
-                        params: [{ chainId: "0x04" }]
+                        params: [{ chainId: "0x4" }]
                     });
                 } catch (error) {
                     console.log(error.message);
@@ -225,7 +225,7 @@ export const CardNum = () => {
                 try {
                     await web3.currentProvider.request({
                         method: "wallet_switchEthereumChain",
-                        params: [{ chainId: "0x04" }]
+                        params: [{ chainId: "0x4" }]
                     });
                 } catch (error) {
                     console.log(error.message);

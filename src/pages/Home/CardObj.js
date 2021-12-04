@@ -110,7 +110,7 @@ export const CardObj = () => {
                     try {
                         await web3.currentProvider.request({
                             method: "wallet_switchEthereumChain",
-                            params: [{ chainId: "0x04" }]
+                            params: [{ chainId: "0x4" }]
                         });
                     } catch (error) {
                         console.log(error.message);
@@ -151,7 +151,7 @@ export const CardObj = () => {
                         clearInterval(timer)
                         await web3.currentProvider.request({
                             method: "wallet_switchEthereumChain",
-                            params: [{ chainId: "0x04" }]
+                            params: [{ chainId: "0x4" }]
                         });
 
                     } catch (error) {
@@ -201,7 +201,7 @@ export const CardObj = () => {
                 try {
                     await web3.currentProvider.request({
                         method: "wallet_switchEthereumChain",
-                        params: [{ chainId: "0x04" }]
+                        params: [{ chainId: "0x4" }]
                     });
                 } catch (error) {
                     console.log(error.message);
@@ -240,7 +240,7 @@ export const CardObj = () => {
                 try {
                     await web3.currentProvider.request({
                         method: "wallet_switchEthereumChain",
-                        params: [{ chainId: "0x04" }]
+                        params: [{ chainId: "0x4" }]
                     });
                 } catch (error) {
                     console.log(error.message);
@@ -295,7 +295,7 @@ export const CardObj = () => {
                 try {
                     await web3.currentProvider.request({
                         method: "wallet_switchEthereumChain",
-                        params: [{ chainId: "0x04" }]
+                        params: [{ chainId: "0x4" }]
                     });
                 } catch (error) {
                     console.log(error.message);
