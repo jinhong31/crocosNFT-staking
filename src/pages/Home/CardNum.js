@@ -85,6 +85,8 @@ export const CardNum = () => {
             } catch (err) {
                 console.log(err)
             }
+        } else {
+            alert('please insert stake or withdraw value')
         }
 
     }

@@ -119,6 +119,8 @@ export const CardObj = () => {
             } catch (err) {
                 console.log(err)
             }
+        } else {
+            alert('please select nft')
         }
     }
 
