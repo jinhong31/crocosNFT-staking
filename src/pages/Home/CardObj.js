@@ -332,7 +332,7 @@ export const CardObj = () => {
                 <Fade in={open}>
                     <Box sx={style}>
                         <StandardImageList itemData={tokensOfOwner} stakeState={stakeState} />
-                        <CustomButton value={setStakeState ? "Stake" : "Withdraw"} onClick={onClickStake} style={{ float: 'right', margin: '0 30px 20px', width: 150 }} />
+                        <CustomButton value={stakeState ? "Stake" : "Withdraw"} onClick={onClickStake} style={{ float: 'right', margin: '0 30px 20px', width: 150 }} />
                     </Box>
                 </Fade>
             </Modal>
