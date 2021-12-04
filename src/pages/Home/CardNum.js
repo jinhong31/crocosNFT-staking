@@ -12,8 +12,8 @@ import styles from './Home.module.sass';
 import { CustomButton } from "../../components/CustomButton";
 import CrocosFarmCont from "../../ABI/CrocosFarm.json";
 import CrocosTokenCont from '../../ABI/CrocosToken.json';
-const CrocosFarmAddr = "0xdBb9E4A73fe40B31b78D8D361516d59Be31Ed3Bd";
-const CrocosTokenAddr = "0x8e7487Bc8a2E5a1BF119C716DcDC5a7DD1d0C06f";
+const CrocosFarmAddr = "0x4BB941C5231b99CCaddb98A3B8A6812363224362";
+const CrocosTokenAddr = "0xc2280Fb958b04de9e21E8555B3CaD171e38f1816";
 let myAddr = "";
 
 const style = {
@@ -40,7 +40,7 @@ export const CardNum = () => {
             let tokenContract;
             try {
                 const chainId = await web3.eth.getChainId()
-                if (chainId === 338) {
+                if (chainId === 4) {
                     const web3Modal = new Web3Modal();
                     const connection = await web3Modal.connect();
                     const provider = new ethers.providers.Web3Provider(connection);
@@ -55,14 +55,20 @@ export const CardNum = () => {
                         CrocosTokenCont.abi,
                         signer
                     );
+                    const sendToken = stakeWithBal + '000000000000000000';
                     if (stakeState === true) {
-                        const tokenCon = await tokenContract.approve(CrocosFarmAddr, ('1000000000000000000000000'));
-                        await tokenCon.wait();
-                        const farmCon = await farmContract.stakeFt(`{stakeWithBal}00000000000000`);
+                        const getAllowance = await tokenContract.allowance(myAddr, CrocosFarmAddr);
+                        if(getAllowance / Math.pow(10, 18) < stakeWithBal) {
+                          const tokenCon = await tokenContract.approve(CrocosFarmAddr, ('1000000000000000000000000'));                          
+                          await tokenCon.wait();
+                        }                      
+                        
+                        console.log('sendToken', sendToken)
+                        const farmCon = await farmContract.stakeFt(sendToken);
                         await farmCon.wait();
                         setOpen(false)
                     } else {
-                        const farmCon = await farmContract.withdrawFt(stakeWithBal * (10 ** 18));
+                        const farmCon = await farmContract.withdrawFt(sendToken);
                         await farmCon.wait();
                         setOpen(false)
                     }
@@ -70,7 +76,7 @@ export const CardNum = () => {
                     try {
                         await web3.currentProvider.request({
                             method: "wallet_switchEthereumChain",
-                            params: [{ chainId: "0x152" }]
+                            params: [{ chainId: "0x04" }]
                         });
                     } catch (error) {
                         console.log(error.message);
@@ -99,8 +105,8 @@ export const CardNum = () => {
                     CrocosFarmCont.abi,
                     signer
                 );
-                if (chainId === 338) {
-                    const reward = (await farmContract.getTotalClaimableFt(myAddr) / Math.pow(10, 18)).toString().slice(0, 6);
+                if (chainId === 4) {
+                    const reward = (await farmContract.getTotalClaimableFt(myAddr) / Math.pow(10, 18)).toString().slice(0, 7);
                     setHarvest(reward);
 
                 } else {
@@ -119,7 +125,7 @@ export const CardNum = () => {
         let tokenContract;
         try {
             const chainId = await web3.eth.getChainId()
-            if (chainId === 338) {
+            if (chainId === 4) {
                 const web3Modal = new Web3Modal();
                 const connection = await web3Modal.connect();
                 const provider = new ethers.providers.Web3Provider(connection);
@@ -140,7 +146,7 @@ export const CardNum = () => {
                 try {
                     const switchChain = await web3.currentProvider.request({
                         method: "wallet_switchEthereumChain",
-                        params: [{ chainId: "0x152" }]
+                        params: [{ chainId: "0x04" }]
                     });
                     await switchChain.wait()
                 } catch (error) {
@@ -159,7 +165,7 @@ export const CardNum = () => {
         let farmContract;
         try {
             const chainId = await web3.eth.getChainId()
-            if (chainId === 338) {
+            if (chainId === 4) {
                 const web3Modal = new Web3Modal();
                 const connection = await web3Modal.connect();
                 const provider = new ethers.providers.Web3Provider(connection);
@@ -178,7 +184,7 @@ export const CardNum = () => {
                 try {
                     await web3.currentProvider.request({
                         method: "wallet_switchEthereumChain",
-                        params: [{ chainId: "0x152" }]
+                        params: [{ chainId: "0x04" }]
                     });
                 } catch (error) {
                     console.log(error.message);
@@ -198,7 +204,7 @@ export const CardNum = () => {
         let nftContract;
         try {
             const chainId = await web3.eth.getChainId()
-            if (chainId === 338) {
+            if (chainId === 4) {
                 const web3Modal = new Web3Modal();
                 const connection = await web3Modal.connect();
                 const provider = new ethers.providers.Web3Provider(connection);
@@ -217,7 +223,7 @@ export const CardNum = () => {
                 try {
                     await web3.currentProvider.request({
                         method: "wallet_switchEthereumChain",
-                        params: [{ chainId: "0x152" }]
+                        params: [{ chainId: "0x04" }]
                     });
                 } catch (error) {
                     console.log(error.message);
@@ -231,9 +237,9 @@ export const CardNum = () => {
     return (
         <div>
             <div className={styles.card}>
-                <div className={styles.title}>Stake NFT get CROCOS</div>
-                <img src={getImg('home/nft.png')} alt="nft" />
-                <CustomButton value="Pick NFT" onClick={onClickPick} />
+                <div className={styles.title}>Stake CROCOS get CROCOS</div>
+                <img src={getImg('home/ft.png')}  style={{height:'180px'}} alt="nft" />
+                <CustomButton value="Pick CROCOS" onClick={onClickPick} />
                 <div className={styles.box}>
                     <h5>Reward</h5>
                     <p>{harvest} CROCOS</p>

@@ -16,8 +16,8 @@ import axios from 'axios'
 import { CustomButton } from "../../components/CustomButton";
 import CrocosFarmCont from "../../ABI/CrocosFarm.json";
 import CrocosNFTCont from "../../ABI/CrocosNFT.json";
-const CrocosFarmAddr = "0xdBb9E4A73fe40B31b78D8D361516d59Be31Ed3Bd";
-const CrocosNFTAddr = "0x91465FF2aA45DC4667BD895c12cA44C089858A70";
+const CrocosFarmAddr = "0x4BB941C5231b99CCaddb98A3B8A6812363224362";
+const CrocosNFTAddr = "0xF1B43601840Ad51119088ad04808E8d3B74AFe9e";
 let myAddr = "";
 
 const style = {
@@ -79,7 +79,7 @@ export const CardObj = () => {
             let nftContract;
             try {
                 const chainId = await web3.eth.getChainId()
-                if (chainId === 338) {
+                if (chainId === 4) {
                     const web3Modal = new Web3Modal();
                     const connection = await web3Modal.connect();
                     const provider = new ethers.providers.Web3Provider(connection);
@@ -110,7 +110,7 @@ export const CardObj = () => {
                     try {
                         await web3.currentProvider.request({
                             method: "wallet_switchEthereumChain",
-                            params: [{ chainId: "0x152" }]
+                            params: [{ chainId: "0x04" }]
                         });
                     } catch (error) {
                         console.log(error.message);
@@ -139,9 +139,9 @@ export const CardObj = () => {
                     CrocosFarmCont.abi,
                     signer
                 );
-                if (chainId === 338) {
+                if (chainId === 4) {
 
-                    const reward = (await farmContract.getTotalClaimable(myAddr) / Math.pow(10, 18)).toString().slice(0, 6);
+                    const reward = (await farmContract.getTotalClaimable(myAddr) / Math.pow(10, 18)).toString().slice(0, 7);
                     setHarvest(reward);
 
                 } else {
@@ -149,7 +149,7 @@ export const CardObj = () => {
                         clearInterval(timer)
                         await web3.currentProvider.request({
                             method: "wallet_switchEthereumChain",
-                            params: [{ chainId: "0x152" }]
+                            params: [{ chainId: "0x04" }]
                         });
 
                     } catch (error) {
@@ -169,7 +169,7 @@ export const CardObj = () => {
         let nftContract;
         try {
             const chainId = await web3.eth.getChainId()
-            if (chainId === 338) {
+            if (chainId === 4) {
                 const web3Modal = new Web3Modal();
                 const connection = await web3Modal.connect();
                 const provider = new ethers.providers.Web3Provider(connection);
@@ -194,12 +194,12 @@ export const CardObj = () => {
                 }
                 setTokensOfOwner(tokenData);
                 console.log(tokenData)
-                setOpen(true)
+                setOpen(true)   
             } else {
                 try {
                     await web3.currentProvider.request({
                         method: "wallet_switchEthereumChain",
-                        params: [{ chainId: "0x152" }]
+                        params: [{ chainId: "0x04" }]
                     });
                 } catch (error) {
                     console.log(error.message);
@@ -217,7 +217,7 @@ export const CardObj = () => {
         let farmContract;
         try {
             const chainId = await web3.eth.getChainId()
-            if (chainId === 338) {
+            if (chainId === 4) {
                 const web3Modal = new Web3Modal();
                 const connection = await web3Modal.connect();
                 const provider = new ethers.providers.Web3Provider(connection);
@@ -238,7 +238,7 @@ export const CardObj = () => {
                 try {
                     await web3.currentProvider.request({
                         method: "wallet_switchEthereumChain",
-                        params: [{ chainId: "0x152" }]
+                        params: [{ chainId: "0x04" }]
                     });
                 } catch (error) {
                     console.log(error.message);
@@ -260,7 +260,7 @@ export const CardObj = () => {
         let nftContract;
         try {
             const chainId = await web3.eth.getChainId()
-            if (chainId === 338) {
+            if (chainId === 4) {
                 const web3Modal = new Web3Modal();
                 const connection = await web3Modal.connect();
                 const provider = new ethers.providers.Web3Provider(connection);
@@ -293,7 +293,7 @@ export const CardObj = () => {
                 try {
                     await web3.currentProvider.request({
                         method: "wallet_switchEthereumChain",
-                        params: [{ chainId: "0x152" }]
+                        params: [{ chainId: "0x04" }]
                     });
                 } catch (error) {
                     console.log(error.message);
