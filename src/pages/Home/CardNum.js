@@ -15,7 +15,8 @@ import CrocosTokenCont from '../../ABI/CrocosToken.json';
 const CrocosFarmAddr = "0x4BB941C5231b99CCaddb98A3B8A6812363224362";
 const CrocosTokenAddr = "0xc2280Fb958b04de9e21E8555B3CaD171e38f1816";
 let myAddr = "";
-
+const netchainId = 338;
+const netchainIdHex = '0x152';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -40,7 +41,7 @@ export const CardNum = () => {
             let tokenContract;
             try {
                 const chainId = await web3.eth.getChainId()
-                if (chainId === 4) {
+                if (chainId === netchainId) {
                     const web3Modal = new Web3Modal();
                     const connection = await web3Modal.connect();
                     const provider = new ethers.providers.Web3Provider(connection);
@@ -76,7 +77,7 @@ export const CardNum = () => {
                     try {
                         await web3.currentProvider.request({
                             method: "wallet_switchEthereumChain",
-                            params: [{ chainId: "0x4" }]
+                            params: [{ chainId: netchainIdHex }]
                         });
                     } catch (error) {
                         console.log(error.message);
@@ -107,7 +108,7 @@ export const CardNum = () => {
                     CrocosFarmCont.abi,
                     signer
                 );
-                if (chainId === 4) {
+                if (chainId === netchainId) {
                     const reward = (await farmContract.getTotalClaimableFt(myAddr) / Math.pow(10, 18)).toString().slice(0, 7);
                     setHarvest(reward);
 
@@ -127,7 +128,7 @@ export const CardNum = () => {
         let tokenContract;
         try {
             const chainId = await web3.eth.getChainId()
-            if (chainId === 4) {
+            if (chainId === netchainId) {
                 const web3Modal = new Web3Modal();
                 const connection = await web3Modal.connect();
                 const provider = new ethers.providers.Web3Provider(connection);
@@ -148,7 +149,7 @@ export const CardNum = () => {
                 try {
                     const switchChain = await web3.currentProvider.request({
                         method: "wallet_switchEthereumChain",
-                        params: [{ chainId: "0x4" }]
+                        params: [{ chainId: netchainIdHex }]
                     });
                     await switchChain.wait()
                 } catch (error) {
@@ -167,7 +168,7 @@ export const CardNum = () => {
         let farmContract;
         try {
             const chainId = await web3.eth.getChainId()
-            if (chainId === 4) {
+            if (chainId === netchainId) {
                 const web3Modal = new Web3Modal();
                 const connection = await web3Modal.connect();
                 const provider = new ethers.providers.Web3Provider(connection);
@@ -186,7 +187,7 @@ export const CardNum = () => {
                 try {
                     await web3.currentProvider.request({
                         method: "wallet_switchEthereumChain",
-                        params: [{ chainId: "0x4" }]
+                        params: [{ chainId: netchainIdHex }]
                     });
                 } catch (error) {
                     console.log(error.message);
@@ -206,7 +207,7 @@ export const CardNum = () => {
         let nftContract;
         try {
             const chainId = await web3.eth.getChainId()
-            if (chainId === 4) {
+            if (chainId === netchainId) {
                 const web3Modal = new Web3Modal();
                 const connection = await web3Modal.connect();
                 const provider = new ethers.providers.Web3Provider(connection);
@@ -225,7 +226,7 @@ export const CardNum = () => {
                 try {
                     await web3.currentProvider.request({
                         method: "wallet_switchEthereumChain",
-                        params: [{ chainId: "0x4" }]
+                        params: [{ chainId: netchainIdHex }]
                     });
                 } catch (error) {
                     console.log(error.message);
