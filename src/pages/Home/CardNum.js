@@ -12,11 +12,14 @@ import styles from './Home.module.sass';
 import { CustomButton } from "../../components/CustomButton";
 import CrocosFarmCont from "../../ABI/CrocosFarm.json";
 import CrocosTokenCont from '../../ABI/CrocosToken.json';
-const CrocosFarmAddr = "0x4BB941C5231b99CCaddb98A3B8A6812363224362";
-const CrocosTokenAddr = "0xc2280Fb958b04de9e21E8555B3CaD171e38f1816";
+import BigNumber from "bignumber.js";
+const CrocosFarmAddr = "0x78d90E4462bAaf5b702620ae48bFDad6650EC28f";
+const CrocosTokenAddr = "0x7902c0268729E5DcD0ef2903D467C6E691065a75";
 let myAddr = "";
 const netchainId = 338;
 const netchainIdHex = '0x152';
+// const netchainId = 4;
+// const netchainIdHex = '0x4';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -34,9 +37,9 @@ export const CardNum = () => {
     const [stakeBalance, setStakeBalance] = useState(0);
     const [harvest, setHarvest] = useState(0);
     const [stakeWithBal, setStakeWithBal] = useState(0);
+    const web3 = new Web3(Web3.givenProvider);
     const onClickStake = async () => {
         if (stakeWithBal && stakeWithBal > 0) {
-            const web3 = new Web3(Web3.givenProvider);
             let farmContract;
             let tokenContract;
             try {
@@ -56,11 +59,11 @@ export const CardNum = () => {
                         CrocosTokenCont.abi,
                         signer
                     );
-                    const sendToken = stakeWithBal + '000000000000000000';
+                    const sendToken = web3.utils.toWei(stakeWithBal, 'ether');
                     if (stakeState === true) {
                         const getAllowance = await tokenContract.allowance(myAddr, CrocosFarmAddr);
-                        if(getAllowance / Math.pow(10, 18) < stakeWithBal) {
-                          const tokenCon = await tokenContract.approve(CrocosFarmAddr, ('1000000000000000000000000'));                          
+                        if(Number(web3.utils.fromWei(getAllowance.toString(), 'ether').toString()) < stakeWithBal) {
+                          const tokenCon = await tokenContract.approve(CrocosFarmAddr, web3.utils.toWei('100000000', 'ether'));                          
                           await tokenCon.wait();
                         }                      
                         
@@ -69,6 +72,7 @@ export const CardNum = () => {
                         await farmCon.wait();
                         setOpen(false)
                     } else {
+                        console.log('sendToken', sendToken)
                         const farmCon = await farmContract.withdrawFt(sendToken);
                         await farmCon.wait();
                         setOpen(false)
@@ -109,7 +113,7 @@ export const CardNum = () => {
                     signer
                 );
                 if (chainId === netchainId) {
-                    const reward = (await farmContract.getTotalClaimableFt(myAddr) / Math.pow(10, 18)).toString().slice(0, 7);
+                    const reward = (web3.utils.fromWei((await farmContract.getTotalClaimableFt(myAddr)).toString(), 'ether')).toString().slice(0, 7);
                     setHarvest(reward);
 
                 } else {
@@ -142,7 +146,7 @@ export const CardNum = () => {
                 );
                 // const balance = await nftContract.balanceOf(myAddr);
                 const currentValue = await tokenContract.balanceOf(myAddr);
-                setCurrentBalance(currentValue - 0)
+                setCurrentBalance(currentValue)
                 console.log(currentValue)
                 setOpen(true)
             } else {
@@ -262,7 +266,7 @@ export const CardNum = () => {
                 <Fade in={open}>
                     <Box sx={style}>
                         <div className={styles.unmber}>
-                            <h3>Balance {stakeState ? Math.trunc(currentBalance / (10 ** 13)) / 100000 : Math.trunc(stakeBalance / (10 ** 13)) / 100000}</h3>
+                            <h3>Balance {stakeState ? new BigNumber(web3.utils.fromWei(`${currentBalance}`, 'ether')).toFixed(2) : new BigNumber(web3.utils.fromWei(`${stakeBalance}`, 'ether')).toFixed(2)}</h3>
                             <input type="number"
                                 onChange={(e) => {
                                     setStakeWithBal(e.target.value)

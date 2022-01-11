@@ -16,12 +16,13 @@ import axios from 'axios'
 import { CustomButton } from "../../components/CustomButton";
 import CrocosFarmCont from "../../ABI/CrocosFarm.json";
 import CrocosNFTCont from "../../ABI/CrocosNFT.json";
-const CrocosFarmAddr = "0x4BB941C5231b99CCaddb98A3B8A6812363224362";
-const CrocosNFTAddr = "0xF1B43601840Ad51119088ad04808E8d3B74AFe9e";
+const CrocosFarmAddr = "0x78d90E4462bAaf5b702620ae48bFDad6650EC28f";
+const CrocosNFTAddr = "0x0648A8eC6955440fc2B5385535C64c0c4cAC3370";
 let myAddr = "";
 const netchainId = 338;
 const netchainIdHex = '0x152';
-
+// const netchainId = 4;
+// const netchainIdHex = '0x4';
 const style = {
     position: 'absolute',
     top: '50%',
